@@ -1,0 +1,23 @@
+{
+   "name": "rubencm/storage_flysystem",
+   "type": "phpbb-extension",
+   "description": "",
+   "version": "1.0.0-alpha1",
+   "license": "GPL-2.0",
+   "authors": [{
+      "name": "rubencm"
+   }],
+   "require": {
+      "php": ">=7.0",
+      "league/flysystem": "^1.0",
+      "league/flysystem-aws-s3-v3": "^1.0",
+      "spatie/flysystem-dropbox": "^1.0",
+	  "nao-pon/flysystem-google-drive": "~1.1"
+   },
+   "extra": {
+      "display-name": "Flysystem Storage",
+      "soft-require" : {
+         "phpbb/phpbb": ">=3.3@dev"
+      }
+   }
+}
