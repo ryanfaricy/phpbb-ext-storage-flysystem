@@ -105,7 +105,7 @@ class listener implements EventSubscriberInterface
 		}
 
 		$img->item(0)->setAttribute('src', $src);
-		$event['html'] = $dom->saveXML();
+		$event['html'] = $dom->saveHTML($img->item(0));
 	}
 
 	/**
