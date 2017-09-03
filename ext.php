@@ -1,6 +1,6 @@
 <?php
 
-namespace rubencm\cloudstorage;
+namespace rubencm\storage_flysystem;
 
 class ext extends \phpbb\extension\base
 {
