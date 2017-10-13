@@ -17,6 +17,13 @@ services:
         tags:
             - { name: storage.adapter }
 
+    storage.adapter.azure_blob:
+        class: rubencm\storage_flysystem\adapter\azure_blob
+        shared: false
+        arguments:
+        tags:
+            - { name: storage.adapter }
+
     storage.adapter.dropbox:
         class: rubencm\storage_flysystem\adapter\dropbox
         shared: false
@@ -41,6 +48,12 @@ services:
 # Providers
     storage.provider.aws_s3:
         class: rubencm\storage_flysystem\provider\aws_s3
+        arguments:
+        tags:
+            - { name: storage.provider }
+
+    storage.provider.azure_blob:
+        class: rubencm\storage_flysystem\provider\azure_blob
         arguments:
         tags:
             - { name: storage.provider }
