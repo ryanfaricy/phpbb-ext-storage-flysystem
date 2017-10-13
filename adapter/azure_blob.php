@@ -27,14 +27,6 @@ class azure_blob implements adapter_interface
 	public function configure($options)
 	{
 	    $this->client = ServicesBuilder::getInstance()->createBlobService("DefaultEndpointsProtocol=https;AccountName={$options['AccountName']};AccountKey={$options['AccountKey']};");
-
-
-
-
-
-
-
-
 		$this->container = $options['Container'];
 
 		$adapter = new AzureAdapter($this->client, $this->container);

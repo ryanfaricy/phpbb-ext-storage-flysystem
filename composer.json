@@ -1,8 +1,11 @@
 {
    "name": "rubencm/storage_flysystem",
    "type": "phpbb-extension",
-   "description": "",
+   "description": "Provides abstracted implementation of various storage interfaces",
+   "homepage": "",
    "version": "1.0.0-alpha1",
+   "time": "2016-01-09",
+   "keywords": "",
    "license": "GPL-2.0",
    "authors": [{
       "name": "rubencm"
@@ -12,7 +15,8 @@
       "league/flysystem": "^1.0",
       "league/flysystem-aws-s3-v3": "^1.0",
       "spatie/flysystem-dropbox": "^1.0",
-	  "nao-pon/flysystem-google-drive": "~1.1"
+     "nao-pon/flysystem-google-drive": "~1.1",
+      "league/flysystem-azure": "^1.0"
    },
    "extra": {
       "display-name": "Flysystem Storage",
