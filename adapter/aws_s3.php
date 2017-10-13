@@ -35,10 +35,11 @@ class aws_s3 implements adapter_interface
 			'version' => $options['version'],
 		]);
 
-		$adapter = new AwsS3Adapter($this->client, $options['bucket']);
-
-		$this->filesystem =  new flysystem($adapter);
 		$this->bucket = $options['bucket'];
+
+		$adapter = new AwsS3Adapter($this->client, $this->bucket);
+
+		$this->filesystem = new flysystem($adapter);
 		$this->path = $options['path'];
 
 		if (strlen($this->path) && substr($this->path, -1) != '/')
