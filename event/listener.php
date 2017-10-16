@@ -5,7 +5,7 @@ namespace rubencm\storage_flysystem\event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use rubencm\storage_flysystem\adapter\dropbox;
 use rubencm\storage_flysystem\adapter\aws_s3;
-use phpbb\storage\storage;
+use rubencm\storage_flysystem\storage;
 use phpbb\language\language;
 use phpbb\config\config;
 

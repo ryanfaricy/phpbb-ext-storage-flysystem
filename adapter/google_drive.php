@@ -2,7 +2,7 @@
 
 namespace rubencm\storage_flysystem\adapter;
 
-use phpbb\storage\adapter\adapter_interface;
+use rubencm\storage_flysystem\adapter\adapter_interface;
 use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
 
 class google_drive implements adapter_interface

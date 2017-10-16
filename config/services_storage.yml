@@ -1,0 +1,160 @@
+services:
+
+# Storages
+    storage.attachment:
+        class: rubencm\storage_flysystem\storage
+        arguments:
+            - '@storage.adapter.factory'
+            - 'attachment'
+        tags:
+            - { name: storage }
+
+    storage.avatar:
+        class: rubencm\storage_flysystem\storage
+        arguments:
+            - '@storage.adapter.factory'
+            - 'avatar'
+        tags:
+            - { name: storage }
+
+    storage.backup:
+        class: rubencm\storage_flysystem\storage
+        arguments:
+            - '@storage.adapter.factory'
+            - 'backup'
+        tags:
+            - { name: storage }
+
+# Factory
+    storage.adapter.factory:
+        class: rubencm\storage_flysystem\adapter_factory
+        arguments:
+            - '@config'
+            - '@storage.adapter_collection'
+            - '@storage.provider_collection'
+
+# Collections
+    storage.storage_collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: storage }
+
+    storage.adapter_collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: storage.adapter, class_name_aware: true }
+
+    storage.provider_collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: storage.provider, class_name_aware: true }
+
+# Adapters
+    storage.adapter.local:
+        class: rubencm\storage_flysystem\adapter\local
+        shared: false
+        arguments:
+            - '@filesystem'
+            - '@upload_imagesize'
+            - '@mimetype.guesser'
+            - '%core.root_path%'
+        tags:
+            - { name: storage.adapter }
+
+    storage.adapter.aws_s3:
+        class: rubencm\storage_flysystem\adapter\aws_s3
+        shared: false
+        arguments:
+            - '@filesystem'
+            - '@upload_imagesize'
+            - '@mimetype.guesser'
+            - '%core.root_path%'
+        tags:
+            - { name: storage.adapter }
+
+    storage.adapter.azure_blob:
+        class: rubencm\storage_flysystem\adapter\azure_blob
+        shared: false
+        arguments:
+            - '@filesystem'
+            - '@upload_imagesize'
+            - '@mimetype.guesser'
+            - '%core.root_path%'
+        tags:
+            - { name: storage.adapter }
+
+    storage.adapter.dropbox:
+        class: rubencm\storage_flysystem\adapter\dropbox
+        shared: false
+        arguments:
+            - '@filesystem'
+            - '@upload_imagesize'
+            - '@mimetype.guesser'
+            - '%core.root_path%'
+        tags:
+            - { name: storage.adapter }
+
+    storage.adapter.ftp:
+        class: rubencm\storage_flysystem\adapter\ftp
+        shared: false
+        arguments:
+            - '@filesystem'
+            - '@upload_imagesize'
+            - '@mimetype.guesser'
+            - '%core.root_path%'
+        tags:
+            - { name: storage.adapter }
+
+    storage.adapter.google_drive:
+        class: rubencm\storage_flysystem\adapter\google_drive
+        shared: false
+        arguments:
+            - '@filesystem'
+            - '@upload_imagesize'
+            - '@mimetype.guesser'
+            - '%core.root_path%'
+        tags:
+            - { name: storage.adapter }
+
+# Providers
+    storage.provider.local:
+        class: rubencm\storage_flysystem\provider\local
+        arguments:
+        tags:
+            - { name: storage.provider }
+
+    storage.provider.aws_s3:
+        class: rubencm\storage_flysystem\provider\aws_s3
+        arguments:
+        tags:
+            - { name: storage.provider }
+
+    storage.provider.azure_blob:
+        class: rubencm\storage_flysystem\provider\azure_blob
+        arguments:
+        tags:
+            - { name: storage.provider }
+
+    storage.provider.dropbox:
+        class: rubencm\storage_flysystem\provider\dropbox
+        arguments:
+        tags:
+            - { name: storage.provider }
+
+    storage.provider.ftp:
+        class: rubencm\storage_flysystem\provider\ftp
+        arguments:
+        tags:
+            - { name: storage.provider }
+
+    storage.provider.google_drive:
+        class: rubencm\storage_flysystem\provider\google_drive
+        arguments:
+        tags:
+            - { name: storage.provider }

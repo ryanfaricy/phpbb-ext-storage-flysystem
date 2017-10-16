@@ -2,7 +2,7 @@
 
 namespace rubencm\storage_flysystem\provider;
 
-use \phpbb\storage\provider\provider_interface;
+use \rubencm\storage_flysystem\provider\provider_interface;
 
 class aws_s3 implements provider_interface
 {

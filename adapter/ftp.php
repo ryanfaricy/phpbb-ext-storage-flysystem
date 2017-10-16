@@ -4,7 +4,7 @@ namespace rubencm\storage_flysystem\adapter;
 
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Ftp as FtpAdapter;
-use phpbb\storage\adapter\adapter_interface;
+use rubencm\storage_flysystem\adapter\adapter_interface;
 
 class ftp implements adapter_interface
 {

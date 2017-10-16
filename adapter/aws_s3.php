@@ -5,7 +5,7 @@ namespace rubencm\storage_flysystem\adapter;
 use Aws\S3\S3Client;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
-use phpbb\storage\adapter\adapter_interface;
+use rubencm\storage_flysystem\adapter\adapter_interface;
 
 class aws_s3 implements adapter_interface
 {

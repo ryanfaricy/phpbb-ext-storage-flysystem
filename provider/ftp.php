@@ -2,7 +2,7 @@
 
 namespace rubencm\storage_flysystem\provider;
 
-use \phpbb\storage\provider\provider_interface;
+use \rubencm\storage_flysystem\provider\provider_interface;
 
 class ftp implements provider_interface
 {

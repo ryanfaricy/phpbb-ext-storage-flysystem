@@ -2,10 +2,8 @@
    "name": "rubencm/storage_flysystem",
    "type": "phpbb-extension",
    "description": "Provides abstracted implementation of various storage interfaces",
-   "homepage": "",
    "version": "1.0.0-alpha1",
    "time": "2016-01-09",
-   "keywords": "",
    "license": "GPL-2.0",
    "authors": [{
       "name": "rubencm"

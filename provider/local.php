@@ -13,14 +13,14 @@
 
 namespace rubencm\storage_flysystem\provider;
 
-class azure_blob implements provider_interface
+class local implements provider_interface
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	public function get_name()
 	{
-		return 'azure_blob';
+		return 'local';
 	}
 
 	/**
@@ -28,7 +28,7 @@ class azure_blob implements provider_interface
 	 */
 	public function get_adapter_class()
 	{
-		return \rubencm\storage_flysystem\adapter\azure_blob::class;
+		return \rubencm\storage_flysystem\adapter\local::class;
 	}
 
 	/**
@@ -36,12 +36,7 @@ class azure_blob implements provider_interface
 	 */
 	public function get_options()
 	{
-		return [
-			'AccountName' => ['type' => 'text'],
-			'AccountKey' => ['type' => 'password'],
-			'Container' => ['type' => 'text'],
-			'path' => ['type' => 'text'],
-			];
+		return ['path' => array('type' => 'text')];
 	}
 
 	/**

@@ -2,7 +2,7 @@
 namespace rubencm\storage_flysystem\adapter;
 
 use League\Flysystem\AdapterInterface;
-use phpbb\storage\adapter\adapter_interface;
+use rubencm\storage_flysystem\adapter\adapter_interface;
 use League\Flysystem\Util;
 
 class flysystem

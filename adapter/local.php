@@ -20,13 +20,11 @@ use phpbb\filesystem\filesystem;
 use phpbb\filesystem\helper as filesystem_helper;
 use phpbb\mimetype\guesser;
 use FastImageSize\FastImageSize;
-use WindowsAzure\Common\ServicesBuilder;
-use League\Flysystem\Azure\AzureAdapter;
 
 /**
  * @internal Experimental
  */
-class azure_blob implements adapter_interface, stream_interface
+class local implements adapter_interface, stream_interface
 {
 	/**
 	 * Filesystem component
@@ -75,14 +73,11 @@ class azure_blob implements adapter_interface, stream_interface
 	 */
 	public function configure($options)
 	{
-	    $this->client = ServicesBuilder::getInstance()->createBlobService("DefaultEndpointsProtocol=https;AccountName={$options['AccountName']};AccountKey={$options['AccountKey']};");
-		$this->container = $options['Container'];
-		$this->filesystem = new \League\Flysystem\Filesystem(new AzureAdapter($this->client, $this->container));
-		$this->path = $options['path'];
+		$this->root_path = $this->phpbb_root_path . $options['path'];
 
-		if (strlen($this->path) && substr($this->path, -1) != '/')
+		if (substr($this->root_path, -1, 1) !== DIRECTORY_SEPARATOR)
 		{
-			$this->path .= '/';
+			$this->root_path = $this->root_path . DIRECTORY_SEPARATOR;
 		}
 	}
 
@@ -133,7 +128,7 @@ class azure_blob implements adapter_interface, stream_interface
 	 */
 	public function exists($path)
 	{
-		return $this->filesystem->has($this->root_path . $path);
+		return $this->filesystem->exists($this->root_path . $path);
 	}
 
 	/**
@@ -143,7 +138,7 @@ class azure_blob implements adapter_interface, stream_interface
 	{
 		try
 		{
-			$this->filesystem->delete($this->root_path . $path);
+			$this->filesystem->remove($this->root_path . $path);
 		}
 		catch (filesystem_exception $e)
 		{
@@ -196,7 +191,7 @@ class azure_blob implements adapter_interface, stream_interface
 	{
 		try
 		{
-			$this->filesystem->createDir($this->root_path . $path);
+			$this->filesystem->mkdir($this->root_path . $path);
 		}
 		catch (filesystem_exception $e)
 		{
@@ -225,7 +220,7 @@ class azure_blob implements adapter_interface, stream_interface
 	 */
 	public function read_stream($path)
 	{
-		$stream = @$this->filesystem->readStream($this->root_path . $path);
+		$stream = @fopen($this->root_path . $path, 'rb');
 
 		if (!$stream)
 		{
@@ -245,11 +240,17 @@ class azure_blob implements adapter_interface, stream_interface
 			throw new exception('STORAGE_FILE_EXISTS', $path);
 		}
 
-		$stream = @$this->filesystem->writeStream($this->root_path . $path, $resource);
+		$stream = @fopen($this->root_path . $path, 'w+b');
 
 		if (!$stream)
 		{
 			throw new exception('STORAGE_CANNOT_CREATE_FILE', $path);
+		}
+
+		if (stream_copy_to_stream($resource, $stream) === false)
+		{
+			fclose($stream);
+			throw new exception('STORAGE_CANNOT_COPY_RESOURCE');
 		}
 	}
 
@@ -264,7 +265,7 @@ class azure_blob implements adapter_interface, stream_interface
 	 */
 	public function file_size($path)
 	{
-		$size = $this->filesystem->getSize($this->root_path . $path);
+		$size = filesize($this->root_path . $path);
 
 		if ($size === null)
 		{
@@ -283,7 +284,7 @@ class azure_blob implements adapter_interface, stream_interface
 	 */
 	public function file_mimetype($path)
 	{
-		return ['mimetype' => $this->filesystem->guessMimeType($this->root_path . $path)];
+		return ['mimetype' => $this->mimetype_guesser->guess($this->root_path . $path)];
 	}
 
 	/**

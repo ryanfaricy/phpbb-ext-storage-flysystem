@@ -5,7 +5,7 @@ namespace rubencm\storage_flysystem\adapter;
 use League\Flysystem\Filesystem;
 use Spatie\Dropbox\Client as DropboxClient;
 use Spatie\FlysystemDropbox\DropboxAdapter;
-use phpbb\storage\adapter\adapter_interface;
+use rubencm\storage_flysystem\adapter\adapter_interface;
 
 class dropbox implements adapter_interface
 {
